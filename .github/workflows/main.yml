@@ -3,15 +3,16 @@ on: [push]
 jobs:
   check-npm:
     runs-on: ubuntu-latest
+    env:
+      DROPBOX_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      DROPBOX_APP_KEY: ${{ secrets.APP_KEY }}
+      DROPBOX_APP_SECRET: ${{ secrets.APP_SECRET }}
+      DROPBOX_APP_NAME: ${{ secrets.APP_NAME }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      -
-        run: npm install
-
-      - 
-        env:
-          DROPBOX_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        run: echo $DROPBOX_ACCESS_TOKEN && DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN node actions.js
+      - run: npm install
+      - run: echo $DROPBOX_APP_NAME
+      - run: DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN DROPBOX_APP_KEY=$DROPBOX_APP_KEY DROPBOX_APP_SECRET=$DROPBOX_APP_SECRET node actions.js
