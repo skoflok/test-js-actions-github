@@ -14,4 +14,4 @@ jobs:
       - 
         env:
           DROPBOX_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        run: DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN node actions.js
+        run: echo $DROPBOX_ACCESS_TOKEN && DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN node actions.js
