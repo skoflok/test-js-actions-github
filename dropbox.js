@@ -32,31 +32,18 @@ export async function listFolder(folder = "", options = defaultOptions) {
 
     options = { ...options, body: body };
 
-    console.log(options);
-    try {
-        let response = await fetch(url, options );
-        if(response.status >= 400) {
-            throw new Error("status code: " + response.status + " => " + response.statusText);
-        }
-        return response;
-    } catch (error) {
-        throw new Error(error);
-    }
+    return await makeRequest(url, options);
 }
 
 export async function deleteObject(path, options = defaultOptions) {
-    let url = apiV2Url + 'files/delete_v2';
+    let url = apiV2Url + '/files/delete_v2';
 
     let body = JSON.stringify({ path: path });
 
     options = { ...options, body: body };
 
-    try {
-        let response = await fetch(url, { ...options });
-        return response;
-    } catch (error) {
-        throw new Error(error);
-    }
+    console.log(options);
+    return await makeRequest(url, options, false);
 }
 
 export async function moveObject(from, to, options = defaultOptions) {
@@ -73,12 +60,7 @@ export async function moveObject(from, to, options = defaultOptions) {
 
     options = { ...options, body: body };
 
-    try {
-        let response = await fetch(url, { ...options });
-        return response;
-    } catch (error) {
-        throw new Error(error);
-    }
+    return await makeRequest(url, options, false);
 
 }
 
@@ -106,8 +88,17 @@ export async function uploadFile(pathToFile, pathToUpload) {
         'body': file,
     }
 
+    return await makeRequest(url, options);
+}
+
+async function makeRequest(url, options, httpThrowing = true) {
     try {
-        let response = await fetch(url, { ...options });
+        let response = await fetch(url, options );
+        if(httpThrowing) {
+            if(response.status >= 400) {
+                throw new Error("status code: " + response.status + " => " + response.statusText);
+            }
+        }
         return response;
     } catch (error) {
         throw new Error(error);
