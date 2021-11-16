@@ -16,4 +16,4 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: echo $SOME_ENV
-      - run: DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN node actions.js && echo "SUCCESSFUL"
+      - run: node actions.js && echo "SUCCESSFUL"
