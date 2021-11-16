@@ -13,27 +13,28 @@ const fileTo = folder + '/' + pPrefix + file;
 
 console.log(fileFrom, fileTo);
 
+let del = await deleteObject(fileTo);
 
-    let del = await deleteObject(fileTo);
-    del.json()
-    .then(res => console.log(res));
-
-try {
-    let move = await moveObject(fileFrom, fileTo);
-
-    move.json().then(async res => {
-        console.dir(res);
-        let upload = await uploadFile(file, fileFrom);
-    
-        upload.json().then((res) => {
-            console.dir(res);
-        });
-    }).catch(err => {
-        console.error(err);
+del.json()
+    .then(res => console.log(res))
+    .catch(err => {
+        console.log(err);
+        process.exit(1);
     });
-} catch (error) {
-    console.error(error);
-    exit(1);
-}
 
+let move = await moveObject(fileFrom, fileTo);
 
+move.json().then(async res => {
+    console.dir(res);
+    let upload = await uploadFile(file, fileFrom);
+
+    upload.json().then((res) => {
+        console.dir(res);
+    }).catch(err => {
+        console.log(err);
+        process.exit(1);
+    });
+}).catch(err => {
+    console.log(err);
+    process.exit(1);
+});;
