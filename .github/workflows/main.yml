@@ -16,4 +16,8 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: echo $SOME_ENV
-      - run: node actions.js && echo "SUCCESSFUL"
+      - name: Send file to dropbox
+        env:
+          CI: true
+          DROPBOX_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: node actions.js && echo "SUCCESSFUL"
