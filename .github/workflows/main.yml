@@ -4,9 +4,6 @@ jobs:
   check-npm:
     runs-on: ubuntu-latest
     env:
-      DROPBOX_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      DROPBOX_APP_KEY: ${{ secrets.APP_KEY }}
-      DROPBOX_APP_SECRET: ${{ secrets.APP_SECRET }}
       DROPBOX_APP_NAME: ${{ secrets.APP_NAME }}
       SOME_ENV: "not secret env"
     steps:
