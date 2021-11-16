@@ -23,6 +23,7 @@ move.json().then(async res => {
     });
 }).catch(err => {
     console.error(err);
+    exit(1);
 });
 
 
