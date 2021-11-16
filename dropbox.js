@@ -42,7 +42,6 @@ export async function deleteObject(path, options = defaultOptions) {
 
     options = { ...options, body: body };
 
-    console.log(options);
     return await makeRequest(url, options, false);
 }
 

@@ -1,7 +1,7 @@
 name: main
 on: [push]
 jobs:
-  check-npm:
+  upload-file:
     runs-on: ubuntu-latest
     env:
       DROPBOX_APP_NAME: ${{ secrets.APP_NAME }}
